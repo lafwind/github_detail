@@ -12,10 +12,17 @@
   </p>
   <p>
     <input type="text" data-ng-model="username" placeholder="Enter a github username." />
-    <button data-ng-click="getuser(username)">search</button>
+    <button data-ng-click="get_info(username)">search</button>
   </p>
   <pre>
-    {{user_info}}
+    name: {{user_info.name}}
+    followers: {{user_info.followers}}
+    following: {{user_info.following}}
+    {{user_info.repos_url}}
   </pre>
+  <p>repo list: </p>
+  <ul data-ng-repeat="repo in repo_list">
+    <li>{{repo.name}}</li>
+  </ul>
 </body>
 </html>
