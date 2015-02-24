@@ -23,7 +23,7 @@
   </pre>
   <p>repo list: </p>
   <ul data-ng-repeat="repo in repo_list">
-    <li >
+    <li>
       <p><a href={{repo.html_url}}>{{repo.name}}</a></p>
       <p>{{repo.description}}</p>
     </li>
@@ -31,9 +31,23 @@
 
   <p>starred list: </p>
   <ul data-ng-repeat="star in starred_list">
-    <li >
+    <li>
       <p><a href={{star.html_url}}>{{star.name}}</a></p>
       <p>{{star.description}}</p>
+    </li>
+  </ul>
+
+  <p>followers list: </p>
+  <ul data-ng-repeat="follower in followers">
+    <li>
+      <p><a href={{follower.html_url}}>{{follower.login}}</a></p>
+    </li>
+  </ul>
+
+  <p>followings list: </p>
+  <ul data-ng-repeat="following in followings">
+    <li>
+      <p><a href={{following.html_url}}>{{following.login}}</a></p>
     </li>
   </ul>
 </body>

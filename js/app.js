@@ -58,6 +58,40 @@ app.service("info", function($http, $q) {
     return defer.promise;
   }
 
+  info.get_followers = function(followers_url) {
+    var url = followers_url + '?callback=JSON_CALLBACK';
+    console.log(url);
+    var defer = $q.defer();
+
+    $http.jsonp(url)
+    .success(function(result) {
+      console.log(result);
+      defer.resolve(result.data)
+    })
+    .error(function(err) {
+      defer.reject(err);
+    });
+
+    return defer.promise;
+  }
+
+  info.get_followings = function(following_url) {
+    var url = following_url.split('{')[0] + '?callback=JSON_CALLBACK';
+    console.log(url);
+    var defer = $q.defer();
+
+    $http.jsonp(url)
+    .success(function(result) {
+      console.log(result);
+      defer.resolve(result.data)
+    })
+    .error(function(err) {
+      defer.reject(err);
+    });
+
+    return defer.promise;
+  }
+
   return info;
 });
 
@@ -68,8 +102,8 @@ app.controller("GitCtrl", function($scope, info) {
   $scope.user_info = {};
   $scope.repo_list = {};
   $scope.starred_list = {};
-  $scope.followers = {}
-  $scope.following = {}
+  $scope.followers = {};
+  $scope.followings = {};
 
   $scope.get_all_info = function(username) {
     $scope.get_user(username);
@@ -87,25 +121,43 @@ app.controller("GitCtrl", function($scope, info) {
 
   $scope.get_info = function(username) {
     info.get_user(username)
-    .then(function(res) {
+    .then(function(usr) {
       // success
-      console.log(res.repos_url);
+      console.log(usr.repos_url);
 
       // for repos
-      info.get_repos(res.repos_url)
+      info.get_repos(usr.repos_url)
       .then(function(res) {
-        $scope.repo_list = res
+        $scope.repo_list = res;
         // success
       }, function(err) {
         // err
       });
 
       // for starts
-      info.get_starred(res.starred_url)
+      info.get_starred(usr.starred_url)
       .then(function(res) {
         // success
         $scope.starred_list = res;
 
+      }, function(err) {
+        // err
+      })
+
+      // for followers
+      info.get_followers(usr.followers_url)
+      .then(function(res) {
+        // success
+        $scope.followers = res;
+      }, function(err) {
+        // err
+      })
+
+      // for followings
+      info.get_followings(usr.following_url)
+      .then(function(res) {
+        // success
+        $scope.followings = res;
       }, function(err) {
         // err
       })
