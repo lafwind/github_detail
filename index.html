@@ -13,7 +13,7 @@
   </p>
   <p>
     <input type="text" data-ng-model="username" placeholder="Enter a github username." />
-    <button data-ng-click="get_info(username)">search</button>
+    <button data-ng-click="get_all_info(username)">search</button>
   </p>
   <pre>
     name: {{user_info.name}}
@@ -23,7 +23,18 @@
   </pre>
   <p>repo list: </p>
   <ul data-ng-repeat="repo in repo_list">
-    <li>{{repo.name}}</li>
+    <li >
+      <p><a href={{repo.html_url}}>{{repo.name}}</a></p>
+      <p>{{repo.description}}</p>
+    </li>
+  </ul>
+
+  <p>starred list: </p>
+  <ul data-ng-repeat="star in starred_list">
+    <li >
+      <p><a href={{star.html_url}}>{{star.name}}</a></p>
+      <p>{{star.description}}</p>
+    </li>
   </ul>
 </body>
 </html>

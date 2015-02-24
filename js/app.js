@@ -25,15 +25,33 @@ app.service("info", function($http, $q) {
   }
 
   info.get_repos = function(repos_url) {
+
     var url =  repos_url + '?callback=JSON_CALLBACK';
     var defer = $q.defer();
 
-    $http.jsonp(url).
-      success(function(result) {
+    $http.jsonp(url)
+    .success(function(result) {
       info.repo_list = result.data;
       defer.resolve(result.data)
-    }).
-      error(function(err) {
+    })
+    .error(function(err) {
+      defer.reject(err);
+    });
+
+    return defer.promise;
+  }
+
+  info.get_starred = function(starts_url) {
+    var url = starts_url.split('{')[0] + '?callback=JSON_CALLBACK';
+    console.log(url);
+    var defer = $q.defer();
+
+    $http.jsonp(url)
+    .success(function(result) {
+      console.log(result);
+      defer.resolve(result.data)
+    })
+    .error(function(err) {
       defer.reject(err);
     });
 
@@ -49,9 +67,13 @@ app.controller("GitCtrl", function($scope, info) {
 
   $scope.user_info = {};
   $scope.repo_list = {};
+  $scope.starred_list = {};
+  $scope.followers = {}
+  $scope.following = {}
 
-  $scope.init = function(username) {
+  $scope.get_all_info = function(username) {
     $scope.get_user(username);
+    $scope.get_info(username);
   }
 
   $scope.get_user = function(username) {
@@ -63,18 +85,36 @@ app.controller("GitCtrl", function($scope, info) {
     })
   }
 
-
-  $scope.get_repo = function(username) {
-    $scope.get_user(username);
-    console.log($scope.user_info);
-  }
-
-
   $scope.get_info = function(username) {
-    $scope.get_user(username);
+    info.get_user(username)
+    .then(function(res) {
+      // success
+      console.log(res.repos_url);
+
+      // for repos
+      info.get_repos(res.repos_url)
+      .then(function(res) {
+        $scope.repo_list = res
+        // success
+      }, function(err) {
+        // err
+      });
+
+      // for starts
+      info.get_starred(res.starred_url)
+      .then(function(res) {
+        // success
+        $scope.starred_list = res;
+
+      }, function(err) {
+        // err
+      })
+
+    }, function(err) {
+      // error
+    })
   }
 
-  $scope.init();
-
+  //$scope.init();
 
 });
