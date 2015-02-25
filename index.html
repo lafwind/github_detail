@@ -2,57 +2,80 @@
 <html lang="en" data-ng-app="myApp">
   <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>The detail of your github</title>
+
     <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="js/services/gitservice.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
+
+
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
   </head>
   <body data-ng-controller="GitCtrl">
-    <p>
-      <label for="username">Type in a github username: </label>
-    </p>
-    <p>
-      <input type="text" data-ng-model="username" placeholder="Enter a github username." />
-      <!-- button data-ng-click="get_all_info(username)">search</button -->
-    </p>
-    <div ng-show="username">
-      <pre>
-    name: {{user_info.name}}
-    followers: {{user_info.followers}}
-    following: {{user_info.following}}
-    {{user_info.repos_url}}
-  </pre>
-    <p>repo list: </p>
-    <ul data-ng-repeat="repo in repo_list">
-      <li>
-        <p><a href={{repo.html_url}}>{{repo.name}}</a></p>
-        <p>{{repo.description}}</p>
-      </li>
-    </ul>
+    <div class="container">
+      <div class="row">
+        <h2>Github detail</h2>
+        <p>
+          <label for="username">Type in a github username: </label>
+          <input type="text" data-ng-model="username" placeholder="Enter a github username." />
+          <!-- button data-ng-click="get_all_info(username)">search</button -->
+        </p>
+      </div>
+      <div class="row" ng-show="username">
+        name: {{user_info.name}}
+        followers: {{user_info.followers}}
+        following: {{user_info.following}}
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <p>repo list: </p>
+          <ul data-ng-repeat="repo in repo_list">
+            <li>
+              <p><a href={{repo.html_url}}>{{repo.name}}</a></p>
+              <p>{{repo.description}}</p>
+            </li>
+          </ul>
+        </div>
 
-    <p>starred list: </p>
-    <ul data-ng-repeat="star in starred_list">
-      <li>
-        <p><a href={{star.html_url}}>{{star.name}}</a></p>
-        <p>{{star.description}}</p>
-      </li>
-    </ul>
+        <div class="col-md-3">
+          <p>starred list: </p>
+          <ul data-ng-repeat="star in starred_list">
+            <li>
+              <p><a href={{star.html_url}}>{{star.name}}</a></p>
+              <p>{{star.description}}</p>
+            </li>
+          </ul>
+        </div>
 
-    <p>followers list: </p>
-    <ul data-ng-repeat="follower in followers">
-      <li>
-        <img src={{follower.avatar_url}} alt="header">
-        <p><a href={{follower.html_url}}>{{follower.login}}</a></p>
-      </li>
-    </ul>
+        <div class="col-md-3">
+          <p>followers list: </p>
+          <ul data-ng-repeat="follower in followers">
+            <li>
+              <p><img src={{follower.avatar_url}} alt="header" class="img-circle"></p>
+              <p><a href={{follower.html_url}}>{{follower.login}}</a></p>
+            </li>
+          </ul>
+        </div>
 
-    <p>followings list: </p>
-    <ul data-ng-repeat="following in followings">
-      <li>
-        <img src={{following.avatar_url}} alt="header">
-        <p><a href={{following.html_url}}>{{following.login}}</a></p>
-      </li>
-    </ul>
-  </div>
-</body>
+        <div class="col-md-3">
+          <p>followings list: </p>
+          <ul data-ng-repeat="following in followings">
+            <li>
+              <p><img src={{following.avatar_url}} alt="header" class="img-rounded"></p>
+              <p><a href={{following.html_url}}>{{following.login}}</a></p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
