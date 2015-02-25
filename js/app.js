@@ -97,13 +97,15 @@ app.service("info", function($http, $q) {
 
 
 
-app.controller("GitCtrl", function($scope, info) {
+app.controller("GitCtrl", function($scope, $timeout, info) {
 
   $scope.user_info = {};
   $scope.repo_list = {};
   $scope.starred_list = {};
   $scope.followers = {};
   $scope.followings = {};
+
+  var timeout;
 
   $scope.get_all_info = function(username) {
     $scope.get_user(username);
@@ -166,6 +168,15 @@ app.controller("GitCtrl", function($scope, info) {
       // error
     })
   }
+
+  $scope.$watch('username', function(newUsername) {
+    if (newUsername) {
+      if (timeout) $timeout.cancel(timeout);
+      timeout = $timeout(function() {
+        $scope.get_all_info(newUsername);
+      }, 600)
+    }
+  });
 
   //$scope.init();
 

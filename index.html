@@ -1,54 +1,58 @@
 <!DOCTYPE html>
 <html lang="en" data-ng-app="myApp">
-<head>
-  <meta charset="UTF-8">
-  <title>The detail of your github</title>
-  <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
-  <script type="text/javascript" src="js/services/gitservice.js"></script>
-  <script type="text/javascript" src="js/app.js"></script>
-</head>
-<body data-ng-controller="GitCtrl">
-  <p>
-    <label for="username">Type in a github username: </label>
-  </p>
-  <p>
-    <input type="text" data-ng-model="username" placeholder="Enter a github username." />
-    <button data-ng-click="get_all_info(username)">search</button>
-  </p>
-  <pre>
+  <head>
+    <meta charset="UTF-8">
+    <title>The detail of your github</title>
+    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="js/services/gitservice.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+  </head>
+  <body data-ng-controller="GitCtrl">
+    <p>
+      <label for="username">Type in a github username: </label>
+    </p>
+    <p>
+      <input type="text" data-ng-model="username" placeholder="Enter a github username." />
+      <!-- button data-ng-click="get_all_info(username)">search</button -->
+    </p>
+    <div ng-show="username">
+      <pre>
     name: {{user_info.name}}
     followers: {{user_info.followers}}
     following: {{user_info.following}}
     {{user_info.repos_url}}
   </pre>
-  <p>repo list: </p>
-  <ul data-ng-repeat="repo in repo_list">
-    <li>
-      <p><a href={{repo.html_url}}>{{repo.name}}</a></p>
-      <p>{{repo.description}}</p>
-    </li>
-  </ul>
+    <p>repo list: </p>
+    <ul data-ng-repeat="repo in repo_list">
+      <li>
+        <p><a href={{repo.html_url}}>{{repo.name}}</a></p>
+        <p>{{repo.description}}</p>
+      </li>
+    </ul>
 
-  <p>starred list: </p>
-  <ul data-ng-repeat="star in starred_list">
-    <li>
-      <p><a href={{star.html_url}}>{{star.name}}</a></p>
-      <p>{{star.description}}</p>
-    </li>
-  </ul>
+    <p>starred list: </p>
+    <ul data-ng-repeat="star in starred_list">
+      <li>
+        <p><a href={{star.html_url}}>{{star.name}}</a></p>
+        <p>{{star.description}}</p>
+      </li>
+    </ul>
 
-  <p>followers list: </p>
-  <ul data-ng-repeat="follower in followers">
-    <li>
-      <p><a href={{follower.html_url}}>{{follower.login}}</a></p>
-    </li>
-  </ul>
+    <p>followers list: </p>
+    <ul data-ng-repeat="follower in followers">
+      <li>
+        <img src={{follower.avatar_url}} alt="header">
+        <p><a href={{follower.html_url}}>{{follower.login}}</a></p>
+      </li>
+    </ul>
 
-  <p>followings list: </p>
-  <ul data-ng-repeat="following in followings">
-    <li>
-      <p><a href={{following.html_url}}>{{following.login}}</a></p>
-    </li>
-  </ul>
+    <p>followings list: </p>
+    <ul data-ng-repeat="following in followings">
+      <li>
+        <img src={{following.avatar_url}} alt="header">
+        <p><a href={{following.html_url}}>{{following.login}}</a></p>
+      </li>
+    </ul>
+  </div>
 </body>
 </html>
