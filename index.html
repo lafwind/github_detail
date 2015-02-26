@@ -12,6 +12,7 @@
     <script type="text/javascript" src="js/app.js"></script>
 
 
+    <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -23,57 +24,92 @@
   <body data-ng-controller="GitCtrl">
     <div class="container">
       <div class="row">
-        <h2>Github detail</h2>
-        <p>
-          <label for="username">Type in a github username: </label>
-          <input type="text" data-ng-model="username" placeholder="Enter a github username." />
-          <!-- button data-ng-click="get_all_info(username)">search</button -->
-        </p>
+        <div class="col-md-4 col-md-offset-4">
+          <h2 class="text-center">Github detail</h2>
+        </div>
       </div>
-      <div class="row" ng-show="username">
-        name: {{user_info.name}}
-        followers: {{user_info.followers}}
-        following: {{user_info.following}}
-      </div>
+      <br />
       <div class="row">
-        <div class="col-md-3">
-          <p>repo list: </p>
-          <ul data-ng-repeat="repo in repo_list">
-            <li>
-              <p><a href={{repo.html_url}}>{{repo.name}}</a></p>
-              <p>{{repo.description}}</p>
-            </li>
-          </ul>
+        <div class="col-md-6 col-md-offset-3">
+          <div class="input-group">
+            <span class="input-group-addon" for="username">Github username: </span>
+            <input type="text" class="form-control" data-ng-model="username" placeholder="Enter a github username." />
+          </div>
+          <!-- button data-ng-click="get_all_info(username)">search</button -->
         </div>
-
-        <div class="col-md-3">
-          <p>starred list: </p>
-          <ul data-ng-repeat="star in starred_list">
-            <li>
-              <p><a href={{star.html_url}}>{{star.name}}</a></p>
-              <p>{{star.description}}</p>
-            </li>
-          </ul>
+      </div>
+      <br />
+      <div ng-show="username">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <!--name: {{user_info.name}}-->
+            <div>
+              <img src={{user_info.avatar_url}} class="img-circle header">
+            </div>
+            <br />
+            <p>
+              {{user_info.name}}
+            </p>
+          </div>
         </div>
+        <br />
+        <div class="row">
+          <div class="col-md-4">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                repo list:
+              </div>
+              <ul class="list-group">
+                <li class="list-group-item" data-ng-repeat="repo in repo_list">
+                  <h5><a href={{repo.html_url}}>{{repo.name}}</a></h5>
+                  <p>{{repo.description}}</p>
+                </li>
+              </ul>
+            </div>
+          </div>
 
-        <div class="col-md-3">
-          <p>followers list: </p>
-          <ul data-ng-repeat="follower in followers">
-            <li>
-              <p><img src={{follower.avatar_url}} alt="header" class="img-circle"></p>
-              <p><a href={{follower.html_url}}>{{follower.login}}</a></p>
-            </li>
-          </ul>
-        </div>
+          <div class="col-md-4">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                starred list:
+              </div>
+              <ul class="list-group">
+                <li class="list-group-item" data-ng-repeat="star in starred_list">
+                  <h5><a href={{star.html_url}}>{{star.name}}</a></h5>
+                  <p>{{star.description}}</p>
+                </li>
+              </ul>
+            </div>
+          </div>
 
-        <div class="col-md-3">
-          <p>followings list: </p>
-          <ul data-ng-repeat="following in followings">
-            <li>
-              <p><img src={{following.avatar_url}} alt="header" class="img-rounded"></p>
-              <p><a href={{following.html_url}}>{{following.login}}</a></p>
-            </li>
-          </ul>
+          <div class="col-md-2">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                followers list: ({{user_info.followers}})
+              </div>
+
+              <ul class="list-group">
+                <li class="list-group-item" data-ng-repeat="follower in followers">
+                  <a href={{follower.html_url}}>@{{follower.login}}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                followings list: ({{user_info.following}})
+              </div>
+
+              <ul class="list-group">
+                <li class="list-group-item" data-ng-repeat="following in followings">
+                  <a href={{following.html_url}}>@{{following.login}}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
