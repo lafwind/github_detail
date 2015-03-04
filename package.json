@@ -1,0 +1,24 @@
+{
+  "name": "github_detail",
+  "version": "1.0.0",
+  "description": "An angularjs app for getting info from your github",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.12.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lafwind/github_detail.git"
+  },
+  "author": "lafwind",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lafwind/github_detail/issues"
+  },
+  "homepage": "https://github.com/lafwind/github_detail"
+}
