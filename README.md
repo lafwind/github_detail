@@ -1,8 +1,8 @@
-# An angularjs app for getting info from github
+### An angularjs app for getting info from github
 
 [Github-Detail](https://github-detail.herokuapp.com/)
 
-### 使用:
+###### 使用:
 
 1. bower
 
@@ -10,7 +10,7 @@
 
 3. bootstrap
 
-### 部署:
+###### 部署:
 
 1. heroku
 
