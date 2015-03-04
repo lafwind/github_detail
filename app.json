@@ -1,0 +1,6 @@
+{
+  "name": "Github Detail",
+  "description": "A simple Angularjs app for getting info from your github",
+  "repository": "https://github.com/lafwind/github-detail",
+  "keywords": ["Angularjs", "Github", "whatever"]
+}
