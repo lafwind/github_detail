@@ -60,12 +60,22 @@
                 repo list:
               </div>
               <ul class="list-group">
-                <li class="list-group-item" data-ng-repeat="repo in repo_list">
+                <li class="list-group-item" data-ng-repeat="repo in repo_list | startFrom:currentPage_repo*pageSize | limitTo:pageSize">
                   <h5><a href={{repo.html_url}}>{{repo.name}}</a></h5>
                   <p>{{repo.description}}</p>
                 </li>
               </ul>
             </div>
+
+            <div class="btn-group">
+              <div class="btn-group">
+                <button class="btn btn-default" data-ng-disabled="currentPage_repo == 0" data-ng-click="currentPage_repo=currentPage_repo-1">Previous</button>
+              </div>
+              <div class="btn-group">
+                <button class="btn btn-default" data-ng-disabled="currentPage_repo >= user_info.public_repos/pageSize - 1" data-ng-click="currentPage_repo=currentPage_repo+1">Next</button>
+              </div>
+            </div>
+            <br />
           </div>
 
           <div class="col-md-4">
@@ -74,12 +84,22 @@
                 starred list:
               </div>
               <ul class="list-group">
-                <li class="list-group-item" data-ng-repeat="star in starred_list">
+                <li class="list-group-item" data-ng-repeat="star in starred_list | startFrom:currentPage_starred*pageSize | limitTo:pageSize">
                   <h5><a href={{star.html_url}}>{{star.name}}</a></h5>
                   <p>{{star.description}}</p>
                 </li>
               </ul>
             </div>
+
+            <div class="btn-group">
+              <div class="btn-group">
+                <button class="btn btn-default" data-ng-disabled="currentPage_starred == 0" data-ng-click="currentPage_starred=currentPage_starred-1">Previous</button>
+              </div>
+              <div class="btn-group">
+                <button class="btn btn-default" data-ng-disabled="currentPage >= starred_list.length/pageSize - 1" data-ng-click="currentPage_starred=currentPage_starred+1">Next</button>
+              </div>
+            </div>
+            <br />
           </div>
 
           <div class="col-md-2">
@@ -89,11 +109,21 @@
               </div>
 
               <ul class="list-group">
-                <li class="list-group-item" data-ng-repeat="follower in followers">
+                <li class="list-group-item" data-ng-repeat="follower in followers | startFrom:currentPage_follower*pageSize | limitTo:pageSize">
                   <a href={{follower.html_url}}>@{{follower.login}}</a>
                 </li>
               </ul>
             </div>
+
+            <div class="btn-group">
+              <div class="btn-group">
+                <button class="btn btn-default" data-ng-disabled="currentPage_follower == 0" data-ng-click="currentPage_follower=currentPage_follower-1">Previous</button>
+              </div>
+              <div class="btn-group">
+                <button class="btn btn-default" data-ng-disabled="currentPage_follower >= user_info.followers/pageSize - 1" data-ng-click="currentPage_follower=currentPage_follower+1">Next</button>
+              </div>
+            </div>
+            <br />
           </div>
 
           <div class="col-md-2">
@@ -103,11 +133,21 @@
               </div>
 
               <ul class="list-group">
-                <li class="list-group-item" data-ng-repeat="following in followings">
+                <li class="list-group-item" data-ng-repeat="following in followings | startFrom:currentPage_following*pageSize | limitTo:pageSize">
                   <a href={{following.html_url}}>@{{following.login}}</a>
                 </li>
               </ul>
             </div>
+
+            <div class="btn-group">
+              <div class="btn-group">
+                <button class="btn btn-default" data-ng-disabled="currentPage_following == 0" data-ng-click="currentPage_following=currentPage_following-1">Previous</button>
+              </div>
+              <div class="btn-group">
+                <button class="btn btn-default" data-ng-disabled="currentPage_following >= user_info.following/pageSize - 1" data-ng-click="currentPage_following=currentPage_following+1">Next</button>
+              </div>
+            </div>
+            <br />
           </div>
 
         </div>

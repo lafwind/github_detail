@@ -105,6 +105,14 @@ app.controller("GitCtrl", function($scope, $timeout, info) {
   $scope.followers = {};
   $scope.followings = {};
 
+  $scope.currentPage_repo = 0;
+  $scope.currentPage_starred = 0;
+  $scope.currentPage_follower = 0;
+  $scope.currentPage_following = 0;
+  $scope.pageSize = 10;
+
+  $scope.starreds = 0;
+
   var timeout;
 
   $scope.get_all_info = function(username) {
@@ -180,4 +188,11 @@ app.controller("GitCtrl", function($scope, $timeout, info) {
 
   //$scope.init();
 
+});
+
+app.filter('startFrom', function() {
+  return function(input, start) {
+    start =+ start;
+    return input.slice(start);
+  }
 });
